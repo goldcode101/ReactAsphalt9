@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 
-function App() {
+import Car from './components/Car';
+
+export default function App() {
+  const useHeroku = true;
+  const [data, setData] = useState([]);
+
+  useEffect(async () => {
+    const url = useHeroku ? 'https://asphalt9.herokuapp.com/api/cars' : 'http://localhost:5000/api/cars';
+    const result = await axios(url);
+
+    setData(result.data);
+  }, []);
+
+  console.log(data);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>Asphalt9 Cars</h1>
+      <ul>
+        {data.map((carStats, i) => (
+          <Car carStats={carStats} />
+        ))}
+      </ul>
+    </>
   );
 }
-
-export default App;
