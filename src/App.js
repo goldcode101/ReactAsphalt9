@@ -18,11 +18,9 @@ export default function App() {
   return (
     <>
       <h1>Asphalt9 Cars</h1>
-      <ul>
-        {data.map((carStats, i) => (
-          <Car carStats={carStats} />
-        ))}
-      </ul>
+      {data.map((carStats, i) => (
+        <Car carStats={carStats} />
+      ))}
     </>
   );
 }
